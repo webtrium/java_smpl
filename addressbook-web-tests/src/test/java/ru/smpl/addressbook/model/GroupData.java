@@ -1,4 +1,4 @@
-package ru.smpl.addressbook;
+package ru.smpl.addressbook.model;
 
 public class GroupData {
     private final String name;

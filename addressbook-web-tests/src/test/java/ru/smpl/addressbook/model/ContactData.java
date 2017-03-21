@@ -1,4 +1,4 @@
-package ru.smpl.addressbook;
+package ru.smpl.addressbook.model;
 
 public class ContactData {
     private final String firstname;
