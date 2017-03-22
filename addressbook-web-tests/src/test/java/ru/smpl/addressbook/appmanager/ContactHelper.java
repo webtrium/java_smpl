@@ -28,6 +28,14 @@ public class ContactHelper extends HelperBase {
         click(By.xpath(".//*[@value='Delete']"));
     }
 
+    public void modificationContact() {
+        click(By.xpath("(.//*[@src='icons/pencil.png'])[1]"));
+    }
+
+    public void updateContacts() {
+        click(By.name("update"));
+    }
+
     public void closeWindow(){
         wd.switchTo().alert().accept();
     }
