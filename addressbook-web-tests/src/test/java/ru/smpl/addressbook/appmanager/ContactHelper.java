@@ -47,4 +47,8 @@ public class ContactHelper extends HelperBase {
     public void closeWindow(){
         wd.switchTo().alert().accept();
     }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }
