@@ -1,5 +1,6 @@
 package ru.smpl.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.GroupData;
@@ -9,6 +10,7 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification() {
         app.getNavigationHelper().gotoHomePage();
+        int before = app.getContactHelper().getContactCount();
         if (! app.getContactHelper().isThereAContact()){
             app.getNavigationHelper().gotoGroupPage();
             if (! app.getGroupHelper().isThereAGroup()){
@@ -20,9 +22,11 @@ public class ContactModificationTests extends TestBase {
             app.getContactHelper().submitContactCreation();
         }
         app.getNavigationHelper().gotoHomePage();
-        app.getContactHelper().modificationContact();
+        app.getContactHelper().modificationContact(before - 1);
         app.getContactHelper().fillContactForm(new ContactData("Petr", "Petrov", "petr.petrov@newmymail.ru", null), false);
         app.getContactHelper().updateContacts();
         app.getNavigationHelper().gotoHomePage();
+        int after = app.getContactHelper().getContactCount();
+        Assert.assertEquals(after, before);
     }
 }

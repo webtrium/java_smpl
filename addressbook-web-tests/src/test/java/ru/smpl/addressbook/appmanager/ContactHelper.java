@@ -28,16 +28,17 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void selectContacts() {
-        click(By.name("selected[]"));
+    public void selectContacts(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteSelectedContacts() {
         click(By.xpath(".//*[@value='Delete']"));
     }
 
-    public void modificationContact() {
-        click(By.xpath("(.//*[@src='icons/pencil.png'])[1]"));
+    public void modificationContact(int index) {
+        wd.findElements(By.xpath("(.//*[@src='icons/pencil.png'])")).get(index).click();
+//        click(By.xpath("(.//*[@src='icons/pencil.png'])[1]"));
     }
 
     public void updateContacts() {
@@ -50,5 +51,9 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getContactCount() {
+        return wd.findElements(By.name("selected[]")).size();
     }
 }
