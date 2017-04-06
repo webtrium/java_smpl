@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.GroupData;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
@@ -18,11 +19,22 @@ public class ContactCreationTests extends TestBase {
             app.getGroupHelper().createGroup(new GroupData("test3", null, null));
         }
         app.getNavigationHelper().gotoContactsAddPage();
-        app.getContactHelper().fillContactForm(new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" ), true);
+        ContactData contact = new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" );
+        app.getContactHelper().fillContactForm(contact, true);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getContactList();
         Assert.assertEquals(after.size(), before.size() + 1);
+
+        int max = 0;
+        for (ContactData c : after) {
+            if (c.getId() > max) {
+                max = c.getId();
+            }
+        }
+        contact.setId(max);
+        before.add(contact);
+        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 
 }
