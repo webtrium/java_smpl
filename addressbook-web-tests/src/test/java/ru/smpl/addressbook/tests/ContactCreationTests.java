@@ -1,6 +1,7 @@
 package ru.smpl.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.GroupData;
@@ -10,14 +11,18 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test (enabled = false)
-    public void testContactCreation() {
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> before = app.getContactHelper().getContactList();
+    @BeforeMethod
+    public void ensureReconditions() {
         app.getNavigationHelper().gotoGroupPage();
         if (! app.getGroupHelper().isThereAGroup()){
             app.getGroupHelper().createGroup(new GroupData("test3", null, null));
         }
+    }
+
+    @Test
+    public void testContactCreation() {
+        app.getNavigationHelper().gotoHomePage();
+        List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().gotoContactsAddPage();
         ContactData contact = new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" );
         app.getContactHelper().fillContactForm(contact, true);
