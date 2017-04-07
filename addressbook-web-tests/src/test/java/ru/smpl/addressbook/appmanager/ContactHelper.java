@@ -16,11 +16,11 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
-    public void submitContactCreation() {
+    public void submitCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
+    public void fillForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("email"), contactData.getEmail());
@@ -32,20 +32,20 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void selectContacts(int index) {
+    public void select(int index) {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void deleteSelectedContacts() {
+    public void deleteSelection() {
         click(By.xpath(".//*[@value='Delete']"));
     }
 
-    public void modificationContact(int index) {
+    public void modification(int index) {
         wd.findElements(By.xpath("(.//*[@src='icons/pencil.png'])")).get(index).click();
 //        click(By.xpath("(.//*[@src='icons/pencil.png'])[1]"));
     }
 
-    public void updateContacts() {
+    public void update() {
         click(By.name("update"));
     }
 
@@ -61,7 +61,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.cssSelector("input[accept]"));
         for (WebElement element : elements) {
