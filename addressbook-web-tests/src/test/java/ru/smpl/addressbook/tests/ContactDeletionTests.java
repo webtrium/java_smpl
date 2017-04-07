@@ -16,11 +16,11 @@ public class ContactDeletionTests extends TestBase {
         if (app.contact().list().size() == 0){
             app.goTo().groupPage();
             if (app.group().list().size() == 0){
-                app.group().create(new GroupData("test3", null, null));
+                app.group().create(new GroupData().withName("test3"));
             }
             app.goTo().gotoHomePage();
             app.goTo().gotoContactsAddPage();
-            app.contact().fillForm(new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" ), true);
+            app.contact().fillForm(new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withGroup("test3" ), true);
             app.contact().submitCreation();
         }
     }

@@ -15,7 +15,7 @@ public class ContactCreationTests extends TestBase {
     public void ensureReconditions() {
         app.goTo().groupPage();
         if (app.group().list().size() == 0){
-            app.group().create(new GroupData("test3", null, null));
+            app.group().create(new GroupData().withName("test3"));
         }
     }
 
@@ -24,7 +24,7 @@ public class ContactCreationTests extends TestBase {
         app.goTo().gotoHomePage();
         List<ContactData> before = app.contact().list();
         app.goTo().gotoContactsAddPage();
-        ContactData contact = new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" );
+        ContactData contact = new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withGroup("test3" );
         app.contact().fillForm(contact, true);
         app.contact().submitCreation();
         app.goTo().gotoHomePage();

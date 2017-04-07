@@ -17,11 +17,11 @@ public class ContactModificationTests extends TestBase {
         if (app.contact().list().size() == 0){
             app.goTo().groupPage();
             if (app.group().list().size() == 0){
-                app.group().create(new GroupData("test3", null, null));
+                app.group().create(new GroupData().withName("test3"));
             }
             app.goTo().gotoHomePage();
             app.goTo().gotoContactsAddPage();
-            app.contact().fillForm(new ContactData("Ivan", "Ivanov", "ivan.ivanov@newmymail.ru", "test3" ), true);
+            app.contact().fillForm(new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withGroup("test3" ), true);
             app.contact().submitCreation();
         }
     }
@@ -32,7 +32,7 @@ public class ContactModificationTests extends TestBase {
         List<ContactData> before = app.contact().list();
         int index = before.size() - 1;
         app.contact().modification(index);
-        ContactData contact = new ContactData(before.get(index).getId(),"Petr", "Petrov", "petr.petrov@newmymail.ru", null);
+        ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstname("Petr").withLastname("Petrov").withEmail("petr.petrov@newmymail.ru");
         app.contact().fillForm(contact, false);
         app.contact().update();
         app.goTo().gotoHomePage();
