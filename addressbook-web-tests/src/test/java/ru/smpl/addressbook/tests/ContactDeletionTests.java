@@ -6,16 +6,16 @@ import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.GroupData;
 
-import java.util.List;
+import java.util.Set;
 
 public class ContactDeletionTests extends TestBase {
 
     @BeforeMethod
     public void ensureReconditions() {
         app.goTo().gotoHomePage();
-        if (app.contact().list().size() == 0){
+        if (app.contact().all().size() == 0){
             app.goTo().groupPage();
-            if (app.group().list().size() == 0){
+            if (app.group().all().size() == 0){
                 app.group().create(new GroupData().withName("test3"));
             }
             app.goTo().gotoHomePage();
@@ -27,17 +27,15 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() {
-        app.goTo().gotoHomePage();
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
-        app.contact().select(index);
-        app.contact().deleteSelection();
+        Set<ContactData> before = app.contact().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contact().delete(deletedContact);
         app.contact().closeWindow();
         app.goTo().gotoHomePage();
-        List<ContactData> after = app.contact().list();
-        Assert.assertEquals(after.size(), index);
+        Set<ContactData> after = app.contact().all();
+        Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(index);
+        before.remove(deletedContact);
         Assert.assertEquals(before, after);
     }
 
