@@ -8,7 +8,6 @@ import org.testng.Assert;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.Contacts;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -19,6 +18,7 @@ public class ContactHelper extends HelperBase {
 
     public void submitCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
+        contactCache = null;
     }
 
     public void fillForm(ContactData contactData, boolean creation) {
@@ -44,6 +44,7 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelection();
+        contactCache = null;
     }
 
     public void modification(int id) {
@@ -71,22 +72,13 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("input[accept]"));
-        for (WebElement element : elements) {
-            String lastName = element.findElement(By.xpath("../../td[2]")).getText();
-            String firstName = element.findElement(By.xpath("../../td[3]")).getText();
-            String email = element.getAttribute("accept");
-            int id = Integer.parseInt(element.getAttribute("value"));
-            ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withEmail(email);
-            contacts.add(contact);
-        }
-        return contacts;
-    }
+    private Contacts contactCache = null;
 
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = wd.findElements(By.cssSelector("input[accept]"));
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath("../../td[2]")).getText();
@@ -94,8 +86,8 @@ public class ContactHelper extends HelperBase {
             String email = element.getAttribute("accept");
             int id = Integer.parseInt(element.getAttribute("value"));
             ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withEmail(email);
-            contacts.add(contact);
+            contactCache.add(contact);
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 }

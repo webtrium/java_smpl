@@ -3,9 +3,8 @@ package ru.smpl.addressbook.tests;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
+import ru.smpl.addressbook.model.Contacts;
 import ru.smpl.addressbook.model.GroupData;
-
-import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,13 +22,13 @@ public class ContactCreationTests extends TestBase {
     @Test
     public void testContactCreation() {
         app.goTo().gotoHomePage();
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         app.goTo().gotoContactsAddPage();
         ContactData contact = new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withGroup("test3" );
         app.contact().fillForm(contact, true);
         app.contact().submitCreation();
         app.goTo().gotoHomePage();
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.contact().all();
         assertThat(after.size(),equalTo(before.size()+1));
 
         contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
