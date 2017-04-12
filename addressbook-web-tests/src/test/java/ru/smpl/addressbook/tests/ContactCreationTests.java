@@ -1,12 +1,14 @@
 package ru.smpl.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.GroupData;
 
 import java.util.Set;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 public class ContactCreationTests extends TestBase {
 
@@ -28,10 +30,11 @@ public class ContactCreationTests extends TestBase {
         app.contact().submitCreation();
         app.goTo().gotoHomePage();
         Set<ContactData> after = app.contact().all();
-        Assert.assertEquals(after.size(), before.size() + 1);
+        assertThat(after.size(),equalTo(before.size()+1));
 
+        contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         before.add(contact);
-        Assert.assertEquals(before, after);
+        assertThat(before,equalTo(after));
     }
 
 }
