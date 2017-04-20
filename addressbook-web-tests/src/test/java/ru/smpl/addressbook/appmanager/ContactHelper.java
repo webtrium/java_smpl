@@ -110,11 +110,11 @@ public class ContactHelper extends HelperBase {
     }
 
     //DetailsForm
-    public String DetailsForm(ContactData contact) {
+    public ContactData DetailsForm(ContactData contact) {
         initContactDetailsById(contact.getId());
         WebElement tree = wd.findElement(By.xpath("//div[@id='content']"));
         String allDetails = tree.getText();
-        return allDetails;
+        return new ContactData().withDetailContact(allDetails);
     }
 
     //EditForm

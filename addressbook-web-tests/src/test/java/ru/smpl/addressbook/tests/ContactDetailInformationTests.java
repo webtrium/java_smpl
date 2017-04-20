@@ -14,8 +14,8 @@ public class ContactDetailInformationTests extends TestBase {
         app.goTo().gotoHomePage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-        String contactDetailsForm = app.contact().DetailsForm(contact);
 
+        String contactDetailsForm = app.contact().DetailsForm(contact).getDetailContact();
         String contactEditForm = contactInfoFromEditForm.getFirstname() + contactInfoFromEditForm.getLastname() +
                 contactInfoFromEditForm.getAddress() + contactInfoFromEditForm.getHomePhone() +
                 contactInfoFromEditForm.getMobilePhone() + contactInfoFromEditForm.getWorkPhone() +
