@@ -12,6 +12,17 @@ public class ContactData {
     private String mobilePhone;
     private String workPhone;
     private String address;
+    private String allPhones;
+    private String detailContact;
+
+    public String getDetailContact() {
+        return detailContact;
+    }
+
+    public ContactData withDetailContact(String detailContact) {
+        this.detailContact = detailContact;
+        return this;
+    }
 
     public String getAddress() {
         return address;
@@ -30,8 +41,6 @@ public class ContactData {
         this.allPhones = allPhones;
         return this;
     }
-
-    private String allPhones;
 
     public String getHomePhone() {
         return homePhone;

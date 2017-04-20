@@ -91,6 +91,7 @@ public class ContactHelper extends HelperBase {
 //        return new Contacts(contactCache);
 //    }
 
+    //HomePage
     public Contacts all() {
         contactCache = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
@@ -108,6 +109,15 @@ public class ContactHelper extends HelperBase {
         return new Contacts(contactCache);
     }
 
+    //DetailsForm
+    public String DetailsForm(ContactData contact) {
+        initContactDetailsById(contact.getId());
+        WebElement tree = wd.findElement(By.xpath("//div[@id='content']"));
+        String allDetails = tree.getText();
+        return allDetails;
+    }
+
+    //EditForm
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
@@ -131,5 +141,10 @@ public class ContactHelper extends HelperBase {
         cells.get(7).findElement(By.tagName("a")).click();
     }
 
-
+    public void initContactDetailsById(int id) {
+        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(6).findElement(By.tagName("a")).click();
+    }
 }
