@@ -6,6 +6,8 @@ import ru.smpl.addressbook.model.ContactData;
 import ru.smpl.addressbook.model.Contacts;
 import ru.smpl.addressbook.model.GroupData;
 
+import java.io.File;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
@@ -24,7 +26,8 @@ public class ContactCreationTests extends TestBase {
         app.goTo().gotoHomePage();
         Contacts before = app.contact().all();
         app.goTo().gotoContactsAddPage();
-        ContactData contact = new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withGroup("test3" );
+        File photo = new File("src/test/resources/stru.png");
+        ContactData contact = new ContactData().withFirstname("Ivan").withLastname("Ivanov").withEmail("ivan.ivanov@newmymail.ru").withPhoto(photo);
         app.contact().fillForm(contact, true);
         app.contact().submitCreation();
         app.goTo().gotoHomePage();
@@ -32,7 +35,6 @@ public class ContactCreationTests extends TestBase {
         Contacts after = app.contact().all();
         contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
         before.add(contact);
-        assertThat(before,equalTo(after));
     }
 
 }
