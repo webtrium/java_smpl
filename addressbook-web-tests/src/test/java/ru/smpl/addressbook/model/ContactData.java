@@ -1,21 +1,28 @@
 package ru.smpl.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 
 public class ContactData {
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstname;
+    @Expose
     private String lastname;
+    @Expose
     private String email;
     private String email2;
     private String email3;
     private String group;
+    @Expose
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
     private String address;
     private String allPhones;
     private String detailContact;
+    @Expose
     private File photo;
 
     public File getPhoto() {

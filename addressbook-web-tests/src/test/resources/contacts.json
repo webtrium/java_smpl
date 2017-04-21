@@ -1,0 +1,23 @@
+[
+  {
+    "firstname": "firstname 0",
+    "lastname": "lastname 0",
+    "email": "email 0",
+    "homePhone": "1111",
+    "photo": "src\\test\\resources\\stru.png"
+  },
+  {
+    "firstname": "firstname 1",
+    "lastname": "lastname 1",
+    "email": "email 1",
+    "homePhone": "1116",
+    "photo": "src\\test\\resources\\stru.png"
+  },
+  {
+    "firstname": "firstname 2",
+    "lastname": "lastname 2",
+    "email": "email 2",
+    "homePhone": "11111",
+    "photo": "src\\test\\resources\\stru.png"
+  }
+]
