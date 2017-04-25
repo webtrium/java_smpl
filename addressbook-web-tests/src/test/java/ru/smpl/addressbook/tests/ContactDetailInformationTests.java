@@ -16,16 +16,28 @@ public class ContactDetailInformationTests extends TestBase {
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         String contactDetailsForm = app.contact().DetailsForm(contact).getDetailContact();
+        String HomePhone = "";
+        String MobilePhone = "";
+        String WorkPhone = "";
+
+        if (! contactInfoFromEditForm.getHomePhone().equals("")) {
+            HomePhone = "H: " + contactInfoFromEditForm.getHomePhone();
+        }
+        if (! contactInfoFromEditForm.getMobilePhone().equals("")) {
+            MobilePhone = "M: " + contactInfoFromEditForm.getMobilePhone();
+        }
+        if (! contactInfoFromEditForm.getWorkPhone().equals("")) {
+            WorkPhone = "W: " + contactInfoFromEditForm.getWorkPhone();
+        }
         String contactEditForm = contactInfoFromEditForm.getFirstname() + contactInfoFromEditForm.getLastname() +
-                contactInfoFromEditForm.getAddress() + contactInfoFromEditForm.getHomePhone() +
-                contactInfoFromEditForm.getMobilePhone() + contactInfoFromEditForm.getWorkPhone() +
+                contactInfoFromEditForm.getAddress() + HomePhone + MobilePhone + WorkPhone +
                 contactInfoFromEditForm.getEmail() + contactInfoFromEditForm.getEmail2() + contactInfoFromEditForm.getEmail3();
 
-        assertThat(contactEditForm, equalTo(cleaned(contactDetailsForm)));
+        assertThat(cleaned(contactEditForm), equalTo(cleaned(contactDetailsForm)));
     }
 
     private static String cleaned(String contactDetailsForm) {
-        return contactDetailsForm.replaceAll("\\s", "").replaceAll("[-()]", "").replaceAll(".:", "");
+        return contactDetailsForm.replaceAll("\\s", "").replaceAll("[-()]", "");
     }
 
 }
