@@ -12,7 +12,7 @@ public class ContactDetailInformationTests extends TestBase {
     public void testContactDetailInformation() {
 
         app.goTo().gotoHomePage();
-        ContactData contact = app.contact().all().iterator().next();
+        ContactData contact = app.db().contacts().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
         String contactDetailsForm = app.contact().DetailsForm(contact).getDetailContact();
